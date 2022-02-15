@@ -1,13 +1,13 @@
 package com.example.hanghae99_mini2.validation;
 
 import com.example.hanghae99_mini2.dto.StudyRegisterDto;
+import com.example.hanghae99_mini2.security.UserDetailsImpl;
 
 public class StudyRegisterValidation {
     // 스터디 생성 유효성검사
     public static void validationStudyRegister(StudyRegisterDto requestDto) {
-        //@AuthenticationPrincipal UserDetailsImpl userDetails 매개변수에서 우선 배제
 //        if(userDetails.getUser().getId() != null){
-//            requestDto.setRegisteredUserId(userDetails.getUser().getId());
+//            Long registeredUserId = userDetails.getUser().getId();
 //        }else{
 //            throw new IllegalArgumentException("올바르지 않은 Login UserId 입니다.");
 //        }

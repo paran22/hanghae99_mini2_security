@@ -7,6 +7,7 @@ import com.example.hanghae99_mini2.model.User;
 import com.example.hanghae99_mini2.repository.StudyInfoRepository;
 import com.example.hanghae99_mini2.repository.StudyRepository;
 import com.example.hanghae99_mini2.repository.UserRepository;
+import com.example.hanghae99_mini2.security.UserDetailsImpl;
 import com.example.hanghae99_mini2.validation.StudyRegisterValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,13 @@ public class StudyService {
     private final UserRepository userRepository;
 
     // Study 생성 및 등록한 User의 StudyInfo 등록 메소드
-    public Study createStudy(StudyRegisterDto requestDto) {
+    public Study createStudy(StudyRegisterDto requestDto, UserDetailsImpl userDetails) {
         //Study 생성 유효성 검사
         StudyRegisterValidation.validationStudyRegister(requestDto);
 
         // 임시 registeredUserId 설정, UserDetailsImpl 값 대체
-        Long registeredUserId = 1L;
+//        Long registeredUserId = 1L;
+        Long registeredUserId = userDetails.getUser().getId();
         User user = userRepository.findById(registeredUserId)
                 .orElseThrow(() -> new IllegalArgumentException("createStudy 내부 user find 오류"));
         Study study = new Study(requestDto, registeredUserId);

@@ -3,21 +3,14 @@ package com.example.hanghae99_mini2.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 
 @RequiredArgsConstructor
@@ -37,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    public LoginSuccessHandler loginSuccessHandler() {
 //        return new LoginSuccessHandler();
 //    }
-//
+
 //    @Bean
 //    public LoginFailureHandler loginFailureHandler() {
 //        return new LoginFailureHandler();
@@ -73,21 +66,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 //                .and()
         .authorizeRequests()
-//                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+//                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 회원 관리 처리 API 전부를 login 없이 허용
                 .antMatchers("/user/**").permitAll()
                 // board, boards 관련 API login 없이 허용
                 .antMatchers("/boards/**").permitAll()
 //                .antMatchers("/board/**").permitAll()
                 // 그 외 어떤 요청이든 '인증'
-                .anyRequest().permitAll()
-//                .anyRequest().authenticated()
+//                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .cors()
                 .and()
 // [로그인 기능]
-                .formLogin().disable();
+                .formLogin().disable()
+        .addFilterAfter(new CookieAttributeFilter(), UsernamePasswordAuthenticationFilter.class);
 //                .addFilterAt(getAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         //// 로그인 View 제공 (GET /user/login)
@@ -120,7 +114,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    try {
 //        authenticationFilter.setFilterProcessesUrl("/user/login");
 //        authenticationFilter.setAuthenticationManager(this.authenticationManagerBean());
-//        authenticationFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
+////        authenticationFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
 //        authenticationFilter.setAuthenticationFailureHandler(loginFailureHandler());
 //    } catch (Exception e) {
 //        e.printStackTrace();

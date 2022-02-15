@@ -62,7 +62,9 @@ public class UserService {
     }
 
     //로그인 시 인증 과정 + Token 생성
-    public AuthenticationToken getAuthenticatoinToken(LoginDto loginDto, HttpSession session) {
+    public AuthenticationToken getAuthenticatoinToken(LoginDto loginDto,
+                                                      HttpSession session
+    ) {
 
         String username = loginDto.getUsername();
         String password = loginDto.getPassword();
