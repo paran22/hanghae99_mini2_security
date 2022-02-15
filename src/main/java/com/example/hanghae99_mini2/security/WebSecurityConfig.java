@@ -101,7 +101,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()
 // 로그아웃 요청 처리 URL
                 .logoutUrl("/user/logout")
-//                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/")
                 .permitAll();
     }
 
