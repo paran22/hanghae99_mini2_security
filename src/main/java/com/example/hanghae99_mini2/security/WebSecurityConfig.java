@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsUtils;
 
 
@@ -74,14 +75,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/boards/**").permitAll()
 //                .antMatchers("/board/**").permitAll()
                 // 그 외 어떤 요청이든 '인증'
-//                .anyRequest().permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
+//                .anyRequest().authenticated()
                 .and()
                 .cors()
                 .and()
 // [로그인 기능]
-                .formLogin().disable()
-        .addFilterAfter(new CookieAttributeFilter(), UsernamePasswordAuthenticationFilter.class);
+                .formLogin().disable();
+//        .addFilterAfter(new CookieAttributeFilter(), BasicAuthenticationFilter.class);
 //                .addFilterAt(getAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         //// 로그인 View 제공 (GET /user/login)
@@ -101,6 +102,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/user/logout")
                 .logoutSuccessHandler(customLogoutSuccessHandler());
     }
+
+
 
 //    @Bean
 //    public CorsConfigurationSource corsConfigurationSource() {

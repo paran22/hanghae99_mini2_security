@@ -78,7 +78,7 @@ public class UserService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Can't find " + username));
         UserDetailsImpl userDetails = new UserDetailsImpl(user);
-        return new AuthenticationToken(userDetails.getUsername(), userDetails.getAuthorities(), session.getId());
+        return new AuthenticationToken(userDetails.getUser().getId(), userDetails.getAuthorities(), session.getId());
 
     }
 }

@@ -4,21 +4,21 @@ import java.util.Collection;
 
 public class AuthenticationToken {
 
-    private String username;
+    private Long userId;
     private Collection authorities;
     private String token;
 
-    public AuthenticationToken(String username, Collection collection, String token) {
-        this.username = username;
+    public AuthenticationToken(Long userId, Collection collection, String token) {
+        this.userId = userId;
         this.authorities = collection;
         this.token = token;
     }
 
-    public String getUsername() {
-        return username;
+    public Long getUserId() {
+        return userId;
     }
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
     public Collection getAuthorities() {
         return authorities;
