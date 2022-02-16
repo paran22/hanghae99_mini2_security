@@ -2,7 +2,7 @@ package com.example.hanghae99_mini2.controller;
 
 import com.example.hanghae99_mini2.domain.Timestamped;
 import com.example.hanghae99_mini2.dto.StudyRegisterDto;
-import com.example.hanghae99_mini2.model.AuthenticationToken;
+import com.example.hanghae99_mini2.dto.StudyUpdateDto;
 import com.example.hanghae99_mini2.model.Study;
 import com.example.hanghae99_mini2.model.User;
 import com.example.hanghae99_mini2.security.UserDetailsImpl;
@@ -31,17 +31,21 @@ public class StudyController extends Timestamped {
 
     // Study 생성
     @PostMapping("/board/write")
+<<<<<<< HEAD
     public Study createStudy(@RequestBody StudyRegisterDto requestDto,
                              @AuthenticationPrincipal UserDetailsImpl userDetails){
 
+=======
+    public Study createStudy(@RequestBody StudyRegisterDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+>>>>>>> 99e5ee600a78f026cbcc5cf08c6632f251b1653e
         return studyService.createStudy(requestDto, userDetails);
     }
 
     // Study 업데이트
-//    @PutMapping("/board/{id}/update")
-//    public Study updateStudy(@PathVariable Long id, @RequestBody StudyDto requestDto) {
-//        return studyService.updateStudy(id, requestDto);
-//    }
+    @PutMapping("/board/{id}/update")
+    public Study updateStudy(@PathVariable Long id, @RequestBody StudyUpdateDto requestDto) {
+        return studyService.updateStudy(id, requestDto);
+    }
 
     // Study 삭제
     @DeleteMapping("/board/{id}/delete")
